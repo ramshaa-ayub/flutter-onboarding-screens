@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_onboarding_screens/introScreen.dart';
 void main() => runApp(
   DevicePreview(
     enabled: !kReleaseMode,
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
-      home: ,
+      home:IntroScreen()  ,
     );
   }
 }
