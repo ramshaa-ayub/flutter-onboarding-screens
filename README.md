@@ -1,4 +1,4 @@
-# Flutter Onboarding & Carousel
+# Flutter Onboarding Screens & Carousel
 
 
 ![Main Poster](images/main-poster.png)
