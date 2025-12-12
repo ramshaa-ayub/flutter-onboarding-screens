@@ -1,8 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_onboarding_screens/carousel_slider.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:carousel_slider/carousel_controller.dart';
 
-class IntroScreen extends StatelessWidget {
+// Main onboarding screen with multiple pages
+class IntroScreen extends StatefulWidget {
   IntroScreen({super.key});
+
+  @override
+  State<IntroScreen> createState() => _IntroScreenState();
+}
+
+class _IntroScreenState extends State<IntroScreen> {
+  bool _isSkipHovered = false; // Track hover state for Skip button
+  bool _isDoneHovered = false; // Track hover state for Done button
+
+  // Builds a hoverable Skip/Done button
+  Widget _buildHoverButton(
+    String text,
+    bool isHovered,
+    VoidCallback onTap, {
+    double fontSize = 19,
+  }) {
+    return MouseRegion(
+      onEnter: (_) => setState(() {
+        if (text == "Skip") _isSkipHovered = true;
+        else _isDoneHovered = true;
+      }),
+      onExit: (_) => setState(() {
+        if (text == "Skip") _isSkipHovered = false;
+        else _isDoneHovered = false;
+      }),
+      child: GestureDetector(
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: BoxDecoration(
+            color: isHovered ? Colors.white : Colors.purple,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.purple),
+          ),
+          child: Text(
+            text,
+            style: TextStyle(
+              fontFamily: "Playfair",
+              fontSize: fontSize,
+              fontWeight: FontWeight.w800,
+              color: isHovered ? Colors.purple : Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +62,9 @@ class IntroScreen extends StatelessWidget {
         globalBackgroundColor: Colors.white,
         scrollPhysics: BouncingScrollPhysics(),
 
+        // ======================== ONBOARDING PAGES ========================
         pages: [
-          // ================= PAGE 1 =================
+          // Page 1
           PageViewModel(
             titleWidget: SizedBox.shrink(),
             bodyWidget: Column(
@@ -31,19 +83,21 @@ class IntroScreen extends StatelessWidget {
                 Text(
                   "Discover Pakistan",
                   style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w700,
+                    fontFamily: "Playfair",
+                    fontSize: 40,
+                    fontWeight: FontWeight.w800,
                     color: Colors.black,
-                    // letterSpacing: .3,
                   ),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 15),
                 Text(
-                  "Explore top cities, attractions,\nrestaurants, hotels and more.",
+                  "Explore top cities, attractions, restaurants, hotels and more.",
                   style: TextStyle(
+                    fontFamily: "Playfair",
+                    fontWeight: FontWeight.w800,
                     fontSize: 17,
-                    color: Colors.blueGrey,
+                    color: Color.fromARGB(255, 54, 56, 58),
                     height: 1.5,
                   ),
                   textAlign: TextAlign.center,
@@ -52,7 +106,7 @@ class IntroScreen extends StatelessWidget {
             ),
           ),
 
-          // ================= PAGE 2 =================
+          // Page 2
           PageViewModel(
             titleWidget: SizedBox.shrink(),
             bodyWidget: Column(
@@ -71,10 +125,10 @@ class IntroScreen extends StatelessWidget {
                 Text(
                   "Find Hidden Gems",
                   style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w700,
+                    fontFamily: "Playfair",
+                    fontSize: 40,
+                    fontWeight: FontWeight.w800,
                     color: Colors.black,
-                    // letterSpacing: .3,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -82,8 +136,10 @@ class IntroScreen extends StatelessWidget {
                 Text(
                   "Discover secret spots and\nfamous landmarks in Pakistan.",
                   style: TextStyle(
+                    fontFamily: "Playfair",
+                    fontWeight: FontWeight.w800,
                     fontSize: 17,
-                    color: Colors.blueGrey,
+                    color: Color.fromARGB(255, 54, 56, 58),
                     height: 1.5,
                   ),
                   textAlign: TextAlign.center,
@@ -92,7 +148,7 @@ class IntroScreen extends StatelessWidget {
             ),
           ),
 
-          // ================= PAGE 3 =================
+          // Page 3
           PageViewModel(
             titleWidget: SizedBox.shrink(),
             bodyWidget: Column(
@@ -111,10 +167,10 @@ class IntroScreen extends StatelessWidget {
                 Text(
                   "Start Your Journey",
                   style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w700,
+                    fontFamily: "Playfair",
+                    fontSize: 40,
+                    fontWeight: FontWeight.w800,
                     color: Colors.black,
-                    // letterSpacing: .3,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -122,8 +178,10 @@ class IntroScreen extends StatelessWidget {
                 Text(
                   "Plan trips, save favorites and enjoy your adventures.",
                   style: TextStyle(
+                    fontFamily: "Playfair",
+                    fontWeight: FontWeight.w800,
                     fontSize: 17,
-                    color: Colors.blueGrey,
+                    color: Color.fromARGB(255, 54, 56, 58),
                     height: 1.5,
                   ),
                   textAlign: TextAlign.center,
@@ -133,28 +191,23 @@ class IntroScreen extends StatelessWidget {
           ),
         ],
 
-        // ================= BUTTONS =================
+        // ======================== BUTTONS ========================
         showSkipButton: true,
-        skip: Text(
-          "Skip",
-          style: TextStyle(
-            color: Colors.purple,
-            fontWeight: FontWeight.bold,
-            fontSize: 19
-          ),
-        ),
+        skip: _buildHoverButton("Skip", _isSkipHovered, () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ImageSlider()),
+          );
+        }),
         next: Icon(Icons.arrow_forward, color: Colors.purple),
-        done: Text(
-          "Done",
-          style: TextStyle(
-            color: Colors.purple,
-            fontWeight: FontWeight.bold,
-            fontSize: 19
+        done: _buildHoverButton("Done", _isDoneHovered, () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ImageSlider()),
+          );
+        }),
 
-          ),
-        ),
-
-        // ================= DOTS =================
+        // ======================== DOTS INDICATOR ========================
         dotsDecorator: DotsDecorator(
           size: Size(8, 8),
           activeSize: Size(26, 8),
@@ -166,8 +219,20 @@ class IntroScreen extends StatelessWidget {
         ),
 
         controlsMargin: EdgeInsets.only(bottom: 40),
-        onSkip: () {},
-        onDone: () {},
+
+        // Backup triggers
+        onSkip: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ImageSlider()),
+          );
+        },
+        onDone: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ImageSlider()),
+          );
+        },
       ),
     );
   }
