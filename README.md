@@ -1,7 +1,7 @@
 # Flutter Onboarding & Carousel
 
 
-(images/main-poster.png)
+![Main Poster](images/main-poster.png)
 
 
 ## Description
