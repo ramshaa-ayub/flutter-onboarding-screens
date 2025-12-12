@@ -1,16 +1,27 @@
-# flutter_onboarding_screens
+# Flutter Onboarding & Carousel
 
-A new Flutter project.
 
-## Getting Started
+(images/main-poster.png)
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Description
+A complete Flutter onboarding experience featuring multiple pages with smooth **carousel sliders**, hoverable Skip/Done buttons, and engaging UI.  
+Designed for mobile apps with responsive layouts, smooth transitions, and reusable components.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Features
+- Multi-page onboarding screens  
+- Smooth carousel image slider  
+- Hoverable Skip and Done buttons for desktop/web  
+- Dots indicator for current page  
+- Primary color: `Color.fromRGBO(103, 58, 183, 1)`  
+- Reusable and modular UI components  
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## How to Run
+```bash
+flutter pub get
+flutter run
+
+## Packages Used
+- `introduction_screen` - for onboarding pages
+- `carousel_slider` - for image carousel/slider
+
